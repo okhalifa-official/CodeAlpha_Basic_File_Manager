@@ -5,6 +5,8 @@
 #include <vector>
 #include <fstream>
 #include <unistd.h>
+#include <ctime>
+#include <cstdio>
 
 using namespace std;
 using namespace std::filesystem;
@@ -208,10 +210,187 @@ void choiceN(){
 
 void choiceC(){
 	
+	cout << "\n           ---------------   Copying  File   ---------------\n\n";
+	cout << "\ncopying file...\n\n";
+	system("ls");
+	getline(cin, cache);
+	cout << "\n";
+	bool f = 0;
+	string file_name;
+	string file_path;
+	string to_path = "";
 	
+	do{
+		if(to_path != "" && f == 0){
+			system("clear");
+			cout << "\ncopying files in progress...\n\n";
+			cout << "~ from: " << current_path() << "\n";
+			cout << "~ to: " << to_path << "\n\n";
+			system("ls");
+			cout << "\n";
+		}
+		
+		if(f == 1){
+			cout << "\nfile copied successfully.\n\n";
+		}
+		
+		cout << "\nEnter file name to copy: ";
+		getline(cin, file_name);
+		
+		file_path = current_path().string() + "/" + file_name;
+		
+		if(!exists(path(file_path))){
+			cout << "\n\ncan't find file in this directory.\n";
+			f = 0;
+		}else{
+			if(to_path == ""){
+				do{
+					cout << "\nEnter destination to copy to: ";
+					getline(cin, to_path);
+					if(!exists(path(to_path))){
+						cout << "\n\npath not found!.\n";
+						f = 0;
+					}
+				}while(!exists(path(to_path)) && to_path != "*quit");
+				if(to_path == "*quit"){
+					return;
+				}
+			}
+			string source_string = current_path().string() + "/" + file_name;
+			string destination_string = to_path;
+			string copy_name;
+			string extension;
+			string copy_path = destination_string + "/" + copy_name;
+			int ext_pos;
+			for(int i=file_name.size()-1;  i>=0; i--){
+				ext_pos = i;
+			}
+			if(ext_pos != file_name.size()){
+				for(int i=0; i<ext_pos; i++){
+					copy_name += file_name[i];
+				}
+				for(int i=ext_pos; i<file_name.size(); i++){
+					extension += file_name[i];
+				}
+			}else{
+				copy_name = file_name;
+			}
+			int i = 0;
+			copy_path = destination_string + "/" + copy_name + extension;
+			while(exists(path(copy_path))){
+				if(i == 0){
+					copy_name += '1';
+					ext_pos++;
+				}else if(i % 9 == 0){
+					copy_name[copy_name.size()-1] = '1';
+					copy_name += '1';
+					ext_pos++;
+				}else{
+					copy_name[copy_name.size()-1]++;
+				}
+				i++;
+				copy_path = destination_string + "/" + copy_name + extension;
+			}
+			ifstream from (source_string, ios::binary);
+			ofstream to (copy_path, ios::binary);
+			
+			to << from.rdbuf();
+			
+			from.close();
+			to.close();
+			f = 1;
+		}
+	}while(file_name != "*quit");
 }
 
 void choiceM(){
+	cout << "\n           ---------------   Moving  File   ---------------\n\n";
+	cout << "\nmoving file...\n\n";
+	system("ls");
+	getline(cin, cache);
+	cout << "\n";
+	bool f = 0;
+	string file_name;
+	string file_path;
+	string to_path = "";
 	
-	
+	do{
+		if(to_path != "" && f == 0){
+			system("clear");
+			cout << "\nmoving files in progress...\n\n";
+			cout << "~ from: " << current_path() << "\n";
+			cout << "~ to: " << to_path << "\n\n";
+			system("ls");
+			cout << "\n";
+			f = 1;
+		}
+		
+		if(f == 1){
+			cout << "\nfile moved successfully.\n\n";
+		}
+		
+		cout << "\nEnter file name to move: ";
+		getline(cin, file_name);
+		
+		file_path = current_path().string() + "/" + file_name;
+		
+		if(!exists(path(file_path))){
+			cout << "\n\ncan't find file in this directory.\n";
+		}else{
+			if(to_path == ""){
+				do{
+					cout << "\nEnter destination to move to: ";
+					getline(cin, to_path);
+					if(!exists(path(to_path))){
+						cout << "\n\npath not found!.\n";
+					}
+				}while(!exists(path(to_path)) && to_path != "*quit");
+				if(to_path == "*quit"){
+					return;
+				}
+			}
+			string source_string = current_path().string() + "/" + file_name;
+			string destination_string = to_path;
+			string copy_name;
+			string extension;
+			string copy_path = destination_string + "/" + copy_name;
+			int ext_pos;
+			for(int i=file_name.size()-1; file_name[i+1] != '.' && i>=0; i--){
+				ext_pos = i;
+			}
+			for(int i=0; i<ext_pos; i++){
+				copy_name += file_name[i];
+			}
+			for(int i=ext_pos; i<file_name.size(); i++){
+				extension += file_name[i];
+			}
+			int i = 0;
+			copy_path = destination_string + "/" + copy_name + extension;
+			while(exists(path(copy_path))){
+				if(i == 0){
+					copy_name += '1';
+					ext_pos++;
+				}else if(i % 9 == 0){
+					copy_name[copy_name.size()-1] = '1';
+					copy_name += '1';
+					ext_pos++;
+				}else{
+					copy_name[copy_name.size()-1]++;
+				}
+				i++;
+				copy_path = destination_string + "/" + copy_name + extension;
+			}
+			ifstream from (source_string, ios::binary);
+			ofstream to (copy_path, ios::binary);
+			
+			to << from.rdbuf();
+			
+			from.close();
+			to.close();
+			int status = remove(source_string);
+			if(!status){
+				cout << "\n\nerror removing file.\n\n";
+			}
+		}
+	}while(file_name != "*quit");
 }
