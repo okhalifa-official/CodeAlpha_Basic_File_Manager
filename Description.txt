@@ -1,0 +1,83 @@
+===============   Basic File Manager  ===============
+                   (MacOS Version)
+
+
+
+
+* extra features:
+
+- sequential file naming (file1.txt, file2.txt).
+- copying copies all file types.
+- moving moves all file types.
+- easy to use. (no specific commands needed).
+
+-----------------------
+
+-> Main Menu
+
+In main menu you have 5 options:
+
+(D) Change Directory -> Change current path to specific path.
+(N) Create New File -> Create new file at current path.
+(F) Create New Folder -> Create new folder at current path.
+(C) Copy File -> Copy a file from current directory to a specific directory.
+(M) Move File -> Move a file from current directory to a specific directory.
+
+-----------------------
+
+-> Changing Directory:
+
+In the main menu enter 'd' or 'D' to start changing directory.
+Once in changing directory, you get 4 options:
+
+1- Enter Directory -> Enter a specific directory that lies inside the current path (ex. /Users/username/Downloads).
+2- Go to Parent Directory -> Returns to previous directory (../) (ex. /Users/username).
+3- Reset to Base Directory -> Clears path to first '/' (ex. /).
+4- Back -> exit changing directory mode.
+
+# If a non-existing directory is entered, you get an option to create this new directory.
+
+-----------------------
+
+-> Create New File:
+
+In the main menu enter 'n' or 'N' to start creating a new file.
+Once in creating new file mode, enter a file name to be created at current path.
+
+# If a file with the same name already exists at current path, you're asked to enter a new file name.
+-> to quit this mode enter "*quit"
+
+-----------------------
+
+-> Create New Folder:
+In the main menu enter 'f' or 'F' to start creating a new Folder.
+Once in creating new folder mode, enter a folder name to be created at current path.
+
+# If a folder with the same name already exists at current path, you're asked to enter a new folder name.
+-> to quit this mode enter "*quit"
+
+-----------------------
+
+-> Copy File:
+In the main menu enter 'c' or 'C' to start copying file(s).
+Once in copying files mode,
+
+Enter a file name to copy from current path.
+Enter path that you want to copy your file(s) to.
+After each successful copy you get a message "file copied successfully.".
+Enter another file name to copy from current path to path entered at first,
+Or you can enter "*quit" to return to main menu.
+
+-----------------------
+
+-> Move File:
+In the main menu enter 'm' or 'M' to start moving file(s).
+Once in moving files mode,
+
+Enter a file name to move from current path. (Moving files = copy then delete)
+Enter path that you want to move your file(s) to.
+After each successful move you get a message "file moved successfully.".
+Enter another file name to move from current path to path entered at first,
+Or you can enter "*quit" to return to main menu.
+
+-----------------------
